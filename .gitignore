@@ -17,3 +17,6 @@ env/
 .idea/
 
 *.pdf
+
+# Raw StockTwits data from BBoard: too large for GitHub (up to 234 MB per file) and contains user data
+stocktwits_*.csv
