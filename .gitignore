@@ -17,3 +17,7 @@ env/
 .idea/
 
 *.pdf
+
+lab3/Data from 2010/
+lab3/UnlabelledDataset_2/
+*.csv
