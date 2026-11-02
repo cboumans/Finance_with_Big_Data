@@ -1,6 +1,6 @@
 # PC Lab 5 in 10 minutes: what we did and why
 
-Hi both, this is the short guide to our hackathon notebook `PCLab5_Group4.ipynb`. Read this first, then open the notebook. It runs from top to bottom in about 80 seconds.
+Hi both, this is the short guide to our hackathon notebook `PCLab5_Group4.ipynb`. Read this first, then open the notebook. It runs from top to bottom in about a minute.
 
 **To run it you need:** the notebook, `Exchange_Rates_LSEG.xlsx` in the same folder, the course data folders (`sigwatch_data`, `banks_data_bocconi`), and internet (the notebook downloads the Fama French factors itself). Task 3 also needs `torch` and `transformers`; without them it simply skips itself.
 
