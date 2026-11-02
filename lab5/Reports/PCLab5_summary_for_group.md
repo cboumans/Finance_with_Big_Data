@@ -13,7 +13,9 @@ Hi both, this is the short guide to our hackathon notebook `PCLab5_Group4.ipynb`
 **Our answer: markets barely react to NGO campaigns against banks.**
 * Negative events: −0.46% over 21 trading days, about a third of Krüger's −1.31%.
 * But positive events fall just as much (−0.56%). So the fall is not about bad news: bank shares drift down around all events.
-* The clean test, negative minus positive, is +0.17 points (p = 0.679). It stays near zero in all 12 robustness checks and all 10 group comparisons.
+* The clean test, negative minus positive, is +0.17 points (p = 0.679). It covers zero in all 13 robustness checks and all 10 group comparisons.
+* The fall rests on the market model and on clustering by day 0. With five factors the BMP and sign tests do not reject (p = 0.135 and 0.264), and clustered by bank and month the BMP test does not either (p = 0.190).
+* Against other banks of the same region, negative events end at −0.08% and positive ones at +0.31%, so the shared drift looks like banks lagging the market.
 * Careful: this is "we find nothing", not "there is nothing". Our test has only 52% power against a gap as big as Krüger's.
 
 The one plot that sums it up is the last figure of the notebook.
@@ -45,7 +47,7 @@ Plus two optional extras: **Task 3** (can a language model read the tone better 
 | Holidays detected from the prices | Datastream repeats the last price on holidays, which gives fake zero returns. |
 | Betas from 250 days ending 50 days before the event | The event must never enter its own "normal" model. A safeguard proves this for 120 cases. |
 | Market model as baseline, five factors plus momentum as check | The market model is what Krüger uses; the factor model fits banks better. |
-| Errors clustered by event day | Many banks get named in the same report, so their returns move together. |
+| Errors clustered by event day | Many banks get named in the same report, so their returns move together. We also show clustering by bank and month, because windows a day apart share 20 of 21 days. |
 | CARs winsorised at 1% and 99% | Bankia's 2013 rescue gives a CAR of −138%, which would dominate an average. |
 | **Negative minus positive as the main test** | All event days drift down by about −0.02% a day. Comparing the two groups removes that drift. |
 
