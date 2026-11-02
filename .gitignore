@@ -23,3 +23,6 @@ lab3/UnlabelledDataset_2/
 
 # Raw StockTwits data from BBoard: too large for GitHub (up to 234 MB per file) and contains user data
 stocktwits_*.csv
+
+lab5/banks_data_bocconi/
+lab5/sigwatch_data/
