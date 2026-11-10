@@ -26,3 +26,6 @@ stocktwits_*.csv
 
 lab5/banks_data_bocconi/
 lab5/sigwatch_data/
+
+# Project: downloaded ISD files and derived tables (regenerate with the numbered scripts)
+project/data/

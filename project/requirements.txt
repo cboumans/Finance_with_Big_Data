@@ -1,0 +1,9 @@
+numpy
+pandas
+matplotlib
+requests
+pillow
+rasterio
+ipykernel
+nbformat
+nbclient
