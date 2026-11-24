@@ -110,7 +110,7 @@ def main():
                 picked = True
         if not picked:
             print(f"!! {hub}: no downloaded candidate reaches {C.MIN_SKY_COMPLETENESS:.0%} sky "
-                  f"completeness (download more ranks with 02_download_isd.py N)")
+                  f"completeness (download more ranks with pipeline/02_download_isd.py N)")
     pd.DataFrame(qc_rows).to_csv(C.OUT / "station_qc.csv", index=False)
     pd.DataFrame(chosen).to_csv(C.OUT / "chosen_stations.csv", index=False)
     print(pd.DataFrame(qc_rows).to_string(index=False))

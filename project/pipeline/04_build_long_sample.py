@@ -10,7 +10,7 @@ Outputs (data/out):
   hourly_cover_long.csv.gz   local hour x hub, mean first-layer sky cover (all 24 hours)
   station_choice_long.csv    hub, year, station used, distance, completeness
 
-Usage: python 04_build_long_sample.py [first_year] [last_year]
+Usage: python pipeline/04_build_long_sample.py [first_year] [last_year]
 """
 import csv
 import importlib

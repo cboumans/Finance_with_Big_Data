@@ -9,7 +9,7 @@ The first run asks for the WRDS username and password in the terminal (Duo appro
 and offers to store them in ~/.pgpass.
 
 Resumable: one file per year in data/wrds/, finished years are skipped.
-Usage: python 05_download_wrds_uso.py [first_year] [last_year] [ticker]
+Usage: python pipeline/05_download_wrds_uso.py [first_year] [last_year] [ticker]
 """
 import datetime as dt
 import sys

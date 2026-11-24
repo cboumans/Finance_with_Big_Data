@@ -1,6 +1,6 @@
 """Step 2: download ISD hourly files for candidate stations, START_YEAR..END_YEAR.
 
-Resumable (skips files that exist). Usage: 02_download_isd.py [max_rank] [hub-substring ...]
+Resumable (skips files that exist). Usage: python pipeline/02_download_isd.py [max_rank] [hub-substring ...]
 max_rank limits how many ranked candidates per hub are fetched (default 1; rerun with 2, 3
 for hubs whose first choice fails QC in step 3).
 """

@@ -8,8 +8,8 @@ from pathlib import Path
 START_YEAR = 2014
 END_YEAR = 2018
 
-ROOT = Path(__file__).resolve().parent
-ISD_HISTORY = ROOT / "isd-history.csv"
+ROOT = Path(__file__).resolve().parent.parent  # project/ (this file is in project/pipeline/)
+ISD_HISTORY = ROOT / "data" / "isd-history.csv"
 DATA = ROOT / "data"
 ISD_DIR = DATA / "isd"            # raw per-station-year files
 OUT = DATA / "out"                # derived tables
