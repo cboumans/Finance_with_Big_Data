@@ -29,3 +29,10 @@ lab5/sigwatch_data/
 
 # Project: downloaded ISD files and derived tables (regenerate with the numbered scripts)
 project/data/
+# ...except the long cloud sample (1.3 MB) that Replication_Group4.ipynb reads: NOAA retired ISD in 2025
+!project/data/
+project/data/*
+!project/data/out/
+project/data/out/*
+!project/data/out/hourly_cover_long.csv.gz
+!project/data/out/station_choice_long.csv

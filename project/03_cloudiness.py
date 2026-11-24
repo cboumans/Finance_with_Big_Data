@@ -1,9 +1,11 @@
 """Step 3: build daily and weekly cloudiness from the downloaded ISD files.
 
 Method (paper, Sec. 4.2): sky cover per hour and location, averaged over daylight hours
-(07:00-18:00 local), averaged across the ten hubs. Weekly measure uses the window from the
-Thursday before the Friday inventory date through the Tuesday before the Wednesday
-announcement (footnote 11). A week is "cloudy" if above the 75th percentile of the sample.
+(07:00-18:00 local), averaged across the ten hubs. The weekly window runs from the Thursday
+before the Friday inventory date to the day before the announcement (footnote 11). Satellites
+need only one clear day, so the weekly measure is the window's LEAST cloudy day, and a week is
+"cloudy" if even that day is above the 75th percentile of the sample (Sec. 4.2). The window
+mean is kept as `cloudiness_mean` for comparison (it was the weekly measure before Nov 2026).
 
 Sky cover per observation = max over config.SKY_LAYERS of oktas/8 (default GA1 only, which
 matches the paper's Table 1 moments; see config.py). 9 = sky obscured -> 1.0; 10 = partial obscuration and 99 = missing -> NaN.
@@ -67,6 +69,27 @@ def expected_daylight_hours():
     return len(days) * (C.DAY_END_HOUR - C.DAY_START_HOUR)
 
 
+def inventory_friday(announcement):
+    """EIA stocks refer to the last Friday at least five days before the announcement
+    (Wednesday -5 days, holiday-delayed Thursday -6, Friday -7)."""
+    back = (announcement.dayofweek - 4) % 7
+    return announcement - pd.Timedelta(days=back if back >= 5 else back + 7)
+
+
+def weekly_cloudiness(daily, announcements):
+    """Least cloudy day (and mean) from the Thursday before the inventory Friday to the day before
+    each announcement, plus the cloudy dummy at C.CLOUDY_QUANTILE. Returns (table, threshold)."""
+    rows = []
+    for a in announcements:
+        w = daily.loc[inventory_friday(a) - pd.Timedelta(days=1): a - pd.Timedelta(days=1)]
+        rows.append(dict(announcement=a.date(), cloudiness=w.min(), cloudiness_mean=w.mean(),
+                         n_days=int(w.notna().sum())))
+    wk = pd.DataFrame(rows)
+    thr = wk["cloudiness"].quantile(C.CLOUDY_QUANTILE)
+    wk["cloudy"] = (wk["cloudiness"] > thr).astype(int)
+    return wk, thr
+
+
 def main():
     C.OUT.mkdir(parents=True, exist_ok=True)
     cands = pd.read_csv(C.OUT / "candidates.csv", dtype=str)
@@ -112,20 +135,14 @@ def main():
         ann = pd.to_datetime(pd.read_csv(p)["date"])
     else:
         ann = pd.date_range(f"{C.START_YEAR}-01-01", f"{C.END_YEAR}-12-31", freq="W-WED")
-    rows = []
-    for a in ann:
-        # Thursday before the Friday measurement .. Tuesday before announcement (Wed)
-        w = daily.loc[a - pd.Timedelta(days=6): a - pd.Timedelta(days=1), "cloudiness"]
-        rows.append(dict(announcement=a.date(), cloudiness=w.mean(), n_days=int(w.notna().sum())))
-    wk = pd.DataFrame(rows)
-    thr = wk["cloudiness"].quantile(C.CLOUDY_QUANTILE)
-    wk["cloudy"] = (wk["cloudiness"] > thr).astype(int)
+    wk, thr = weekly_cloudiness(daily["cloudiness"], ann)
     wk.to_csv(C.OUT / "weekly_cloudiness.csv", index=False)
 
     print(f"\nDaily: n={daily.cloudiness.notna().sum()} of {len(daily)}, "
           f"mean={daily.cloudiness.mean():.3f}, median={daily.cloudiness.median():.3f}, "
           f"sd={daily.cloudiness.std():.3f}   (paper 2014-18: mean .35, median .33, sd .16)")
-    print(f"Weekly: n={len(wk)}, {C.CLOUDY_QUANTILE:.0%} threshold={thr:.3f}, cloudy weeks={wk.cloudy.sum()}")
+    print(f"Weekly (least cloudy day): n={len(wk)}, {C.CLOUDY_QUANTILE:.0%} threshold={thr:.3f}, "
+          f"cloudy weeks={wk.cloudy.sum()}")
 
 
 if __name__ == "__main__":

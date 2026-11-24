@@ -1,6 +1,9 @@
 numpy
 pandas
 matplotlib
+scipy
+statsmodels
+xlrd
 requests
 pillow
 rasterio
