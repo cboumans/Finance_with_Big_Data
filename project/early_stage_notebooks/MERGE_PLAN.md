@@ -3,6 +3,10 @@
 Status on 26 November 2026, after `git fetch`. Nothing was edited for this plan; all numbers come from the notebooks as
 they are on the branches, run from `project/` on this machine.
 
+*Moved on 26 November 2026:* this plan and the four notebooks it describes now live in
+`project/early_stage_notebooks/`; the final notebook it plans is `project/Final_Group4.ipynb`. Paths such as
+`data/`, `pipeline/` and `slides/` below are relative to `project/`, as before.
+
 ## 1. Branches
 
 | Branch | Last commit | Author | Notebooks that differ from `origin/main` |
