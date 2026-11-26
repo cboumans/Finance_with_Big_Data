@@ -37,4 +37,4 @@ project/data/out/*
 !project/data/out/hourly_cover_long.csv.gz
 !project/data/out/station_choice_long.csv
 !project/data/isd-history.csv
-!project/data/lseg/
+# data/lseg/USO_1min.csv.gz (LSEG minute bars) stays local: licensed data, public repository
